@@ -6,7 +6,7 @@ data:
   features_path: 'data/features.csv'
   trainset_path: 'data/train_iris.csv'
   testset_path: 'data/test_iris.csv'
-  test_size: 0.30
+  test_size: 0.35
   random_state: 42
 
 training:
@@ -20,4 +20,5 @@ training:
 reports:
   metrics_file: 'eval/metrics.json'
   confusion_matrix_file: 'eval/confusion_matrix.png'
+  confusion_matrix_csv_file: 'eval/confusion_matrix_data.csv'
 

@@ -1,14 +1,15 @@
 import yaml
-from typing import Text
 import pandas as pd
 import joblib
 import json
+import csv
 from sklearn.metrics import (
     confusion_matrix, ConfusionMatrixDisplay, f1_score,
     precision_score, recall_score, accuracy_score
 )
 import matplotlib.pyplot as plt
 import argparse
+from typing import Text
 
 def eval(config_path: Text) -> None:
     with open(config_path) as conf_file:
@@ -36,6 +37,14 @@ def eval(config_path: Text) -> None:
 
     # Save the figure
     plt.savefig(config['reports']['confusion_matrix_file'])
+
+    # Save Confusion Matrix Data to CSV
+    cm_csv_file = config['reports']['confusion_matrix_csv_file']
+    with open(cm_csv_file, 'w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(['True', 'Predicted'])
+        for true_class, predicted_class in zip(y_test, prediction):
+            writer.writerow([true_class, predicted_class])
 
     # Metrics
     metrics = {

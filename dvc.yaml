@@ -1,0 +1,65 @@
+stages:
+  load:
+    cmd: python src/load.py --config=params.yaml
+    deps:
+    - src/load.py
+    - data/iris.csv
+    params:
+    - base
+    - data
+    outs:
+    - data/processed.csv
+
+  feat:
+    cmd: python src/feat.py --config=params.yaml
+    deps:
+    - src/feat.py
+    - data/processed.csv
+    params:
+    - base
+    - data
+    outs:
+    - data/features.csv
+
+  split:
+    cmd: python src/split.py --config=params.yaml
+    deps:
+    - src/split.py
+    - data/features.csv
+    params:
+    - base
+    - data
+    outs:
+    - data/train_iris.csv
+    - data/test_iris.csv
+
+  train:
+    cmd: python src/train.py --config=params.yaml
+    deps:
+    - src/train.py
+    - data/train_iris.csv
+    params:
+    - base
+    - data
+    - training
+    outs:
+    - model/model.pkl
+
+  eval:
+    cmd: python src/eval.py --config=params.yaml
+    deps:
+    - src/eval.py
+    - model/model.pkl
+    - data/test_iris.csv
+    params:
+    - base
+    - data
+    - reports
+    outs:
+    - eval/confusion_matrix.png
+    metrics:
+    - eval/metrics.json:
+        cache: false
+
+
+  

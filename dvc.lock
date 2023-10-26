@@ -97,8 +97,8 @@ stages:
       size: 5063
     - path: src/train.py
       hash: md5
-      md5: 29bfab53b7eb8c6cc2eb0dca4c32697b
-      size: 1317
+      md5: 605bb1c016b2a175c2b71746ee04bb3d
+      size: 1647
     params:
       params.yaml:
         base:
@@ -113,16 +113,28 @@ stages:
           random_state: 42
         training:
           clf_params:
-            C: 0.001
-            solver: lbfgs
-            multi_class: multinomial
-            max_iter: 100
+            C:
+            - 0.01
+            - 0.1
+            - 1
+            - 10
+            - 100
+            solver:
+            - liblinear
+            - saga
+            multi_class:
+            - auto
+            - ovr
+            max_iter:
+            - 100
+            - 200
+            - 300
           model_path: model/model.pkl
     outs:
     - path: model/model.pkl
       hash: md5
-      md5: bf2de7aa4938c1160f662a97f42eab81
-      size: 991
+      md5: febbde1ddb3f749e8506f1fe3928f411
+      size: 979
   eval:
     cmd: python src/eval.py --config=params.yaml
     deps:
@@ -132,12 +144,12 @@ stages:
       size: 2140
     - path: model/model.pkl
       hash: md5
-      md5: bf2de7aa4938c1160f662a97f42eab81
-      size: 991
+      md5: febbde1ddb3f749e8506f1fe3928f411
+      size: 979
     - path: src/eval.py
       hash: md5
-      md5: 9ecb66791dd66f8a5a702b16305eed39
-      size: 2183
+      md5: 56208a445286a83f37acdc29541910ea
+      size: 2184
     params:
       params.yaml:
         base:
@@ -157,13 +169,13 @@ stages:
     outs:
     - path: eval/confusion_matrix.png
       hash: md5
-      md5: 09a28bddd53e8fa71028f7618f8aa858
-      size: 14157
+      md5: 12737acab47647a12327efd167743c4c
+      size: 15720
     - path: eval/confusion_matrix_data.csv
       hash: md5
-      md5: 437331c05386ec2f4504011e35d5aac2
+      md5: 71f3643799854e4f2edbe9ae29918e97
       size: 241
     - path: eval/metrics.json
       hash: md5
-      md5: c2b55d6939a0185611d8fccd0829adce
-      size: 139
+      md5: 2ae1175a116273922f214979450c6e8c
+      size: 79

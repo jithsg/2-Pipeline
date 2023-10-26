@@ -21,7 +21,7 @@ stages:
           features_path: data/features.csv
           trainset_path: data/train_iris.csv
           testset_path: data/test_iris.csv
-          test_size: 0.2
+          test_size: 0.3
           random_state: 42
     outs:
     - path: data/processed.csv
@@ -49,7 +49,7 @@ stages:
           features_path: data/features.csv
           trainset_path: data/train_iris.csv
           testset_path: data/test_iris.csv
-          test_size: 0.2
+          test_size: 0.3
           random_state: 42
     outs:
     - path: data/features.csv
@@ -77,24 +77,24 @@ stages:
           features_path: data/features.csv
           trainset_path: data/train_iris.csv
           testset_path: data/test_iris.csv
-          test_size: 0.2
+          test_size: 0.3
           random_state: 42
     outs:
     - path: data/test_iris.csv
       hash: md5
-      md5: b5e45593a772fc66629488e1806505c4
-      size: 1492
+      md5: a4062ba6421285181f76cad57ab08d43
+      size: 2140
     - path: data/train_iris.csv
       hash: md5
-      md5: 946355786c879b0b8c516e0dce27834c
-      size: 5711
+      md5: 98f6a1e51aaa095a515adf09a6193bca
+      size: 5063
   train:
     cmd: python src/train.py --config=params.yaml
     deps:
     - path: data/train_iris.csv
       hash: md5
-      md5: 946355786c879b0b8c516e0dce27834c
-      size: 5711
+      md5: 98f6a1e51aaa095a515adf09a6193bca
+      size: 5063
     - path: src/train.py
       hash: md5
       md5: 29bfab53b7eb8c6cc2eb0dca4c32697b
@@ -109,7 +109,7 @@ stages:
           features_path: data/features.csv
           trainset_path: data/train_iris.csv
           testset_path: data/test_iris.csv
-          test_size: 0.2
+          test_size: 0.3
           random_state: 42
         training:
           clf_params:
@@ -121,18 +121,18 @@ stages:
     outs:
     - path: model/model.pkl
       hash: md5
-      md5: 1bd503d001a5182d7a89a681fb36e93a
+      md5: bf2de7aa4938c1160f662a97f42eab81
       size: 991
   eval:
     cmd: python src/eval.py --config=params.yaml
     deps:
     - path: data/test_iris.csv
       hash: md5
-      md5: b5e45593a772fc66629488e1806505c4
-      size: 1492
+      md5: a4062ba6421285181f76cad57ab08d43
+      size: 2140
     - path: model/model.pkl
       hash: md5
-      md5: 1bd503d001a5182d7a89a681fb36e93a
+      md5: bf2de7aa4938c1160f662a97f42eab81
       size: 991
     - path: src/eval.py
       hash: md5
@@ -148,7 +148,7 @@ stages:
           features_path: data/features.csv
           trainset_path: data/train_iris.csv
           testset_path: data/test_iris.csv
-          test_size: 0.2
+          test_size: 0.3
           random_state: 42
         reports:
           metrics_file: eval/metrics.json
@@ -156,9 +156,9 @@ stages:
     outs:
     - path: eval/confusion_matrix.png
       hash: md5
-      md5: 22118cd552ce2f566f99e7de2535622d
-      size: 12976
+      md5: 09a28bddd53e8fa71028f7618f8aa858
+      size: 14157
     - path: eval/metrics.json
       hash: md5
-      md5: d10501b1d9e01dde925df3d318f125fd
+      md5: c2b55d6939a0185611d8fccd0829adce
       size: 139
